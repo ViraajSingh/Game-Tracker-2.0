@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Tracker 2.0</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    label, input, select, button { margin: 5px 0; display: block; }
+    #output { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>Game Tracker</h1>
+
+  <label>Add Player:</label>
+  <input type="text" id="playerName" placeholder="Player Name" />
+  <button id="addPlayerButton" onclick="addPlayer()">Add Player</button>
+
+  <label>Choose Game:</label>
+  <select id="gameSelect">
+    <option value="Chess">Chess</option>
+    <option value="Checkers">Checkers</option>
+    <option value="Monopoly">Arcane</option>
+    <option value="Uno">Uno</option>
+    <option value="Scrabble">Scrabble</option>
+    <option value="Dota 2">Dota 2</option>
+    <option value="Mario Party Jamboree">Mario Party Jamboree</option>
+    <option value="Red Dead Redemption">Red Dead Redemption</option>
+  </select>
+
+  <button  id="new" onclick="addNewGame()">Add New Game</button>
+
+
+  <label>Enter 3 Scores (comma separated):</label>
+  <input type="text" id="scoreInput" placeholder="e.g. 90,80,100" />
+  <button id="addScoresButton" onclick="addScores()">Add Scores</button>
+
+  <hr />
+
+  <button onclick="displaySummary()">Display Summary</button>
+  <button onclick="sortByAverage()">Sort Players by Average</button>
+  <button onclick="showPopularGame()">Most Popular Game</button>
+
+  <div id="output"></div>
+
+  <script>
+  data = new Map([
+    //initial state of the games for each player and also this will be used to reference for the postion and to add new games 
+    ["Viraaj", new Set(["MarioKart", "SuperSmashBros", "Zelda"])],
+    ["John", new Set(["MarioKart", "Zelda"])],
+    ["Alice", new Set(["MarioKart", "Zelda"])],
+]);
+
+const games = ["FORZA", "Zelda", "MarioKart", "SuperSmashBros", "CallOfDuty"];//this is an array that is used fo that we can add a random game to the player
+function addNewGame(gameName) {//function to add a new game to each charger 
+    for (let x of data.values()) {
+        let check = x.has(gameName);//checking to see if the new set for the player already has the game
+        if (check) {
+            console.log(gameName +  " already exists for this player");//tellign the user the error that they ran into 
+            return data;
+        }
+        else {
+            x.add(gameName);//if we get here then it means that we are able to add the game to the player list and we would do so 
+            console.log(gameName +  " added successfully");//this tells the user which game and that it was added successfully
+        }
+    }
+    return data;//give back the map to the user to see the changes made 
+}
+
+
+
+function RandomAddNewGame(randomGame) { // function to add the random game to the player list
+    for (let x of data.values()) {
+        const random = Math.floor(Math.random() * games.length); // this is getting a random number between 0 and 4 in order to use as reference to the games array
+        randomGame = games[random]; // finding the random game using the random number that we got above
+        console.log("Randomly selected game: " + randomGame); // telling the user the random game we got 
+        let check = x.has(randomGame); // making a true or false statement if the user has the random game in their set  
+        if (check) {//checking to see if it has it and if it does hit this then we will move from this 
+            console.log("Game " + randomGame + " already exists for this player");
+        } else {
+            x.add(randomGame); // add the game to the player's set
+            console.log("Game " + randomGame + " added successfully"); // if we get here then we know that the game was not in the set and we can add it to the player list
+        }
+    }
+}
+
+
+const scores = [//setting intial scores for the players 
+    [100, 200, 300],//Viraaj
+    [400, 9000, 600],//John
+    [700, 800, 900]//Alice
+];
+
+
+
+
+const playerNames = ["Viraaj", "John", "Alice"];//a array for the names of the character to use 
+
+function averageScore(playerName) {//function to find the average score of the player
+    //seing of the player is even in the playerName 
+    const playerIndex = playerNames.indexOf(playerName);
+    if (playerIndex === -1) {//since we used the index of if the value we get is -1 then we know that the player is not in the list
+        return "Player not found";
+    }
+    const playerScores = scores[playerIndex];//now we will access the given score and the index of the player and thus the values of the three scores
+    
+
+    let totalScore = 0; //intial score of the total score 
+    for (let i = 0; i < playerScores.length; i++) {//looping through the scores of the player and adding them to the total score
+
+        totalScore += playerScores[i];//adding the score to the total score
+
+    }
+    return totalScore / playerScores.length;//returning the average score of the player
+}
+
+function printScores() {
+    for (let i = 0; i < scores.length; i++) {
+        const player = playerNames[i];//finding the player name using the index of the player
+        const playerScores = scores[i];//finding the score of the player using the index of the player
+        console.log(`${player}'s scores: ${playerScores}`);//printing the player name and the score of the player
+    }
+}
+
+//fnction to use the array scores and to print each thign indivually but add them together in the end with the .join
+function printAllPlayerScores() {
+    for (let i = 0; i < scores.length; i++) {//for loop to go through the scores of the player
+        const player = playerNames[i];//making the program know what player the scores are meant for 
+        const playerScores = scores[i];///accessing the scores of the player using the index of the player indivually 
+        console.log(`${player}'s scores: ${playerScores.join(', ')}`);//prinitng the player name and the scores of the player each time 
+    }
+}
+function printAllGames(){//printing all of the games 
+    for (let [player, games] of data.entries()) {//acess the entries of the data map in order to get both the player and the games
+        var gameList = "";
+games.forEach(function(game) {//goign through each of the games and adding them to the gameList
+    gameList += game + ", ";//formatting of the game with the comma 
+});
+console.log(player + "'s games: " + gameList);//produce the code 
+}
+}
+
+function findHighestAverageScore(){//finding the highest average code 
+    let highestAverage = 0;//intial condition of the highest average
+    let playerWithHighestAverage = "";//intial condtion of who has the highest name 
+    
+    for (let i = 0; i < playerNames.length; i++) {//go over all of the players 
+        const playerName = playerNames[i];//using the index of the player to get the name of the player
+        const average = averageScore(playerName);//finding the average score of each of the players
+        
+        if (average > highestAverage) {//cheking to see if the average score of the player is greater than the highest average score
+            highestAverage = average;//if it does then we will make it the highest 
+            playerWithHighestAverage = playerName;//amke sujre to document the player with the highest average score 
+        }
+    }
+    
+    return playerWithHighestAverage + " has the highest average score of " + highestAverage;//produce the result and also the player with the highest average score
+}
+function findPlayerWithMostGames() {//finidng which player played the most 
+    let playerWithMostGames = "";//intial conditonws 
+    let mostGamesCount = 0;
+    
+    for (let playerName of data.keys()) {//goign through the data keys which are the player games 
+        const gameCount = data.get(playerName).size;//finding the size of the game for each player
+        if (gameCount > mostGamesCount) {//checking if the game count is greater than the most games count
+            mostGamesCount = gameCount;//if it is then we will make it the most games count
+            playerWithMostGames = playerName;//make sure to document the player with the most games
+        }
+    }
+    return playerWithMostGames + " has the most games with " + mostGamesCount + " games.";
+  }
+
+
+  let hasShownAlert = false;  // Flag to track if alert has been shown
+
+  function addPlayer() {
+    const playerName = document.getElementById("playerName").value;
+    if (playerName) {
+      playerNames.push(playerName);
+      data.set(playerName, new Set([]));
+      scores.push([0, 0, 0]);
+      if (!hasShownAlert) {
+        alert("Added new player: " + playerName);
+        hasShownAlert = true;
+      }
+    } else {
+      alert("Player name cannot be empty");
+    }
+  }
+
+  function addingGames() {
+  const gameName = document.getElementById("gameSelect").value;
+  const playerName = document.getElementById("playerName").value;
+  if (!playerName || !gameName) {
+    alert("Player name and game cannot be empty");
+    return;
+  }
+
+  const playerGames = data.get(playerName);
+  if (!playerGames) {
+    alert("Player not found");
+    return;
+  }
+  if (playerGames.has(gameName)) {
+    alert("Game " + gameName + " already exists for this player");
+    return;
+  }
+
+  playerGames.add(gameName);
+  alert("Added game " + gameName + " to player " + playerName);
+}
+
+  document.getElementById("addPlayerButton").addEventListener("click", addPlayer);//adding the event listener to the button to add a new player to the player list
+
+  document.getElementById("new").addEventListener("click", addingGames);//adding the event listener to the button to add a new game to the player list  
+
+let alerting = false
+  function addScores(){
+    const PlayerName = document.getElementById("playerName").value;
+    const scoreInput = document.getElementById("scoreInput").value;
+    const scoreStrings = scoreInput.split(",");
+    const scoresArray = scoreStrings.map(score => parseInt(score));
+    const playerIndex = playerNames.indexOf(PlayerName);
+    if (playerIndex == -1) {
+        alert("Player not found: " + PlayerName);
+    } else {
+      alert("Scores added for " + PlayerName);
+      scores[playerIndex] = scoresArray;
+      alerting = true; // Set alerting to true after adding scores
+    }
+  }
+
+
+  document.getElementById("addScoresButton").addEventListener("click", addScores);//adding the event listener to the button to add scores for a player
+  </script>
+  </html>
