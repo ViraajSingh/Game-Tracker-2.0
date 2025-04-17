@@ -3,6 +3,7 @@ data = new Map([
     ["Viraaj", new Set(["MarioKart", "SuperSmashBros", "Zelda"])],
     ["John", new Set(["MarioKart", "Zelda"])],
     ["Alice", new Set(["MarioKart", "Zelda"])],
+    
 ]);
 
 const games = ["FORZA", "Zelda", "MarioKart", "SuperSmashBros", "CallOfDuty"];//this is an array that is used fo that we can add a random game to the player
@@ -121,50 +122,95 @@ function findPlayerWithMostGames() {//finidng which player played the most
             playerWithMostGames = playerName;//make sure to document the player with the most games
         }
     }
-    
-    return playerWithMostGames + " has the most games with " + mostGamesCount + " games.";//give the result of the player with the most games and how many games they have
-}
-addNewGame("CallOfDuty");
-printAllPlayerScores();
-console.log("Johns average score is " + averageScore("John"));
-console.log("Viraaj's average score is " + averageScore("Viraaj"));
-console.log("Alice's average score is " + averageScore("Alice"));
-console.log(findHighestAverageScore());
-console.log(findPlayerWithMostGames());
-RandomAddNewGame();
-printAllGames();
+    return playerWithMostGames + " has the most games with " + mostGamesCount + " games.";
+  }
 
-//all of this is the documentation of the code and what it does with the use of the function and producing the result 
-function addPlayer(){
-    const playerName = document.getElementById("playerName").value;
-    if (playerName) {
-        playerNames.push(playerName);
-        data.set(playerName, new Set([]));
-        scores.push([0, 0, 0]);
-        console.log(`Added new player: ${playerName}`);
+
+  let hasShownAlert = false;  // Flag to track if alert has been shown
+
+  function addPlayer() { //function to add a new player to the player list
+    const playerName = document.getElementById("playerName").value; //gt the value from the input box by getting the id of the input box 
+    if (playerName) { //checking to see if the player name is acceptable and has a value 
+      playerNames.push(playerName);//pushing it the the defined value of the player names
+      data.set(playerName, new Set([]));//giving it a blanck thign to work with so we can later on add games to it
+      scores.push([0, 0, 0]);//giving that player an intal set of 0 that will be chnaheed 
+      if (!hasShownAlert) {//checking to ssee if the alert has not been shown yet
+        alert("Added new player: " + playerName);//it will produce the alert to tell that it work sucessfully 
+        hasShownAlert = true;
+      }
     } else {
-        console.log("Player name cannot be empty");
+      alert("Player name cannot be empty");//we know that if we get here then we would have had an empty name as an input so we will tell the user that it is empty
     }
+  }
+
+  function addingGames() {//adding a given game from the game selection
+  const gameName = document.getElementById("gameSelect").value;//getting the name of the game from the selcte box 
+  const playerName = document.getElementById("playerName").value;//we want to nnow the name of the player that the user put in the input box 
+  if (!playerName || !gameName) {//checkign to see if the plaery name is empyt of the game was never selcted (is empty)
+    alert("Player name and game cannot be empty");//tell the user that both of them are empty 
+    return;
+  }
+
+  const playerGames = data.get(playerName);//getting the player games from the data map by using the key, this shoudl be nothign insid since the user shoudl have just made the name of it now and it should be made with nothign inside
+  if (!playerGames) {//iif we cant find the player name in the data map then we know that it is not in there and we will tell the user that it is not in there
+    alert("Player not found");////tell the user that the player has not be vreated yet 
+    return;
+  }
+  if (playerGames.has(gameName)) {//checkign to see that if the player yhat has been created has the game in their set already but this is kind of redundant since we just made the player and they should not have any games in their set yet
+    alert("Game " + gameName + " already exists for this player");//tell the user that the game is already there
+    return;
+  }
+
+  playerGames.add(gameName);//we know that if we hit none of the if statements then we are safe to add the game to the player list 
+  alert("Added game " + gameName + " to player " + playerName);//tell the user that the game was added 
 }
 
-document.getElementById("addPlayerButton").addEventListener("click", function() {
-    addPlayer();
-    console.log("Player added successfully");
-    const person = document.getElementById("playerName").value;
-    alert(person + " added successfully");
-    document.getElementById("playerName").value = "";
+  document.getElementById("addPlayerButton").addEventListener("click", addPlayer);//adding the event listener to the button to add a new player to the player list
 
-    document.getElementById("scoreInput").value = "";
-});
+  document.getElementById("new").addEventListener("click", addingGames);//adding the event listener to the button to add a new game to the player list  
 
-document.getElementById("gameSelect").addEventListener("change", function() {
-    const game = this.value;
-    if (data.has(game)) {
-        // console.log(game + " already exists for this player");
+let alerting = false;//make sure the set alerting to false becuase we woudl use this to check for the other functions also 
+  function addScores(){//function to add scores to the player
+    const PlayerName = document.getElementById("playerName").value;//get the name of the user 
+    const scoreInput = document.getElementById("scoreInput").value;//getting the score from the socre input box in the html 
+    const scoreStrings = scoreInput.split(",");//spliting the 
+    const scoresArray = [];//intial an array that we want to hodl the socre in terms of an array with intergers of the score 
+    scoreStrings.forEach(score => {//traverse the array for strings of the scores that we made from the .split 
+      const pushing = parseInt(score.trim());//this will turn that string into an Interger that we can reference to
+      scoresArray.push(pushing);//push the value to the socre array 
+    });
+    const playerIndex = playerNames.indexOf(PlayerName);//find the index of that plaer name in the playerNames array (this shoudl aways be the very last index of the array since we are adding the player to the end of the array)
+    if (playerIndex == -1) {
+        alert("Player not found: " + PlayerName);//since we used Index Of if we get -1 that means thwat the value was never found 
+    } else {
+      if (!alerting) {//if the alerting is false then we know that we have not shown the alert yet
+        alert("Scores added for " + PlayerName);//telling th user that we were able to add the scores 
+        alerting = true;//telling that we have shown the alert so we will not show it again
+      }
+      scores[playerIndex] = scoresArray;//adding the score at that index of the player to the array that we have of all of the scores 
     }
-    else {
-        data.get(game).add(playerName);
-    }
-    console.log(data);
-})
+  }
+  
 
+
+  document.getElementById("addScoresButton").addEventListener("click", addScores);//adding the event listener to the button to add scores for a player
+
+
+  function displaySummary() {//display the findings of the game
+    const outputDiv = document.getElementById("output");//getting the dic that we were owudl later put the values sthat we find 
+    let summary = "";//summary ois what we woudl add the values to so we want to make sure it intal has nothign inside of it 
+    for (let playerName of playerNames) {//we are goign through each of the playName in the arry that contanes the PlayNae 
+        const average = averageScore(playerName);//find the avaerage score of the playerName we are currently on from the for of loop
+        summary += `${playerName}: Average Score: ${average}<br>`;//producing the name of the player with the avaerage socre of the player and we woudl add a br tag (nreak tag) so that we can have soem space 
+        const playerGames = data.get(playerName);//getting the values of the games of that one player 
+        let gameList = '';//making a strign that we woudl add when we go through the player games we found 
+        if (playerGames) {
+          gameList = Array.from(playerGames).join(', ');
+        }
+        summary += `Games: ${gameList}<br>`;
+        summary += `Scores: ${scores[playerNames.indexOf(playerName)].join(', ')}<br>`;//adding the scores of the player to the summary
+        summary += `<br>`;//adding a line break to the summary so we can see it better
+
+    }
+    outputDiv.innerHTML = summary;//putting the summary in the output div so we can see it in the html page 
+  }
