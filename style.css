@@ -1,0 +1,195 @@
+#gameTracker {
+    color: blue;
+    font-size: 30px;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width:fit-content;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 40px;}
+#gameTracker:hover {
+    background-color: #f6b7b7;
+    color: black;
+    transition: background-color 2s ease, color 2s ease;
+    /* this will add the hover effect but over the duration of 2 seconds and will come in over time */
+}
+#addPlayerLabel{
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 5px;
+    color: #333;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 10px;
+}
+#playerName{
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 auto;
+    display: block;
+    
+}
+
+#playerName:hover{
+    background-color: #f6b7b7;
+    color: black;
+    transition: background-color 2s ease, color 2s ease;
+}
+#addPlayerButton{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+#addPlayerButton:hover{
+    background-color: #45a049;
+    transition: background-color 2s ease, color 2s ease;
+    transform: scale(1.05);
+}
+#chooseGame{
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 5px;
+    color: #333;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+}
+#gameSelect{
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+}
+
+#gameSelect option{
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+    color: #45a049;
+    cursor: pointer;
+}
+#new{
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#new:hover{
+    transform: scale(1.05);
+}
+#commas{
+    font-size: 19px;
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 5px;
+    color: #333;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+}
+#scoreInput{
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+}
+#scoreInput:hover{
+    background-color: #f6b7b7;
+    color: black;
+    transition: background-color 2s ease, color 2s ease;
+}
+#addScoresButton{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#output{
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 5px;
+    color: #333;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px;
+    border: 2px solid #000;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width:fit-content;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 40px;
+    font-size: 30px;
+    
+}
+#output:hover {
+    background-color: #333;
+    color: green;
+    transition: background-color 2s ease, color 2s ease;
+    /* this will add the hover effect but over the duration of 2 seconds and will come in over time */
+}

@@ -3,7 +3,6 @@ data = new Map([
     ["Viraaj", new Set(["MarioKart", "SuperSmashBros", "Zelda"])],
     ["John", new Set(["MarioKart", "Zelda"])],
     ["Alice", new Set(["MarioKart", "Zelda"])],
-    
 ]);
 
 const games = ["FORZA", "Zelda", "MarioKart", "SuperSmashBros", "CallOfDuty"];//this is an array that is used fo that we can add a random game to the player
@@ -66,7 +65,7 @@ function averageScore(playerName) {//function to find the average score of the p
         totalScore += playerScores[i];//adding the score to the total score
 
     }
-    return totalScore / playerScores.length;//returning the average score of the player
+    return Math.round(totalScore / playerScores.length);//returning the average score of the player
 }
 
 function printScores() {
@@ -131,11 +130,11 @@ function findPlayerWithMostGames() {//finidng which player played the most
   function addPlayer() { //function to add a new player to the player list
     const playerName = document.getElementById("playerName").value; //gt the value from the input box by getting the id of the input box 
     if (playerName) { //checking to see if the player name is acceptable and has a value 
-      playerNames.push(playerName);//pushing it the the defined value of the player names
-      data.set(playerName, new Set([]));//giving it a blanck thign to work with so we can later on add games to it
-      scores.push([0, 0, 0]);//giving that player an intal set of 0 that will be chnaheed 
-      if (!hasShownAlert) {//checking to ssee if the alert has not been shown yet
-        alert("Added new player: " + playerName);//it will produce the alert to tell that it work sucessfully 
+      playerNames.push(playerName);//pushing it the the defined array of the player names
+      data.set(playerName, new Set([]));//giving it a blank thing to work with so we can later on add games to it
+      scores.push([0, 0, 0]);//giving that player an initial set of 0 that will be changed 
+      if (!hasShownAlert) {//checking to see if the alert has not been shown yet
+        alert("Added new player: " + playerName);//it will produce the alert to tell that it worked successfully 
         hasShownAlert = true;
       }
     } else {
@@ -214,3 +213,58 @@ let alerting = false;//make sure the set alerting to false becuase we woudl use 
     }
     outputDiv.innerHTML = summary;//putting the summary in the output div so we can see it in the html page 
   }
+
+  function sortByAverage() {
+  const outputDiv = document.getElementById("output");
+  let summary = "Players sorted by average score:<br>";
+
+  const playerWithScores = [];
+  playerNames.forEach(player => {
+    playerWithScores.push({ player, score: averageScore(player) });
+  });
+
+  for (let i = 0; i < playerWithScores.length; i++) {
+    for (let j = i + 1; j < playerWithScores.length; j++) {
+      if (playerWithScores[i].score < playerWithScores[j].score) {
+        // Swap the players if they are out of order
+        const temp = playerWithScores[i];
+        playerWithScores[i] = playerWithScores[j];
+        playerWithScores[j] = temp;
+      }
+    }
+  }
+
+  playerWithScores.forEach(({ player, score }) => {
+    summary += `${player}: Average Score: ${score}<br>`;
+  });
+
+  outputDiv.innerHTML = summary;
+}
+function showPopularGame() {
+  const outputDiv = document.getElementById("output");
+  let summary = "Most popular game:<br>";
+  const gameCount = {};//this is a map that we will use to count the number of times a game was played by the players
+  for (let playerName of playerNames) {//goign through the player names 
+    const playerGames = data.get(playerName);//getting the games of the player 
+    if (playerGames) {//if the player has games then we will go through them and add them to the gameCount map 
+      for (let game of playerGames) {
+        if (!gameCount[game]) {//if the game is not in the map yet then we will add it to the map with a value of 1
+          gameCount[game] = 1;
+        } else {
+          gameCount[game]++;//if it is in there then we will just add one to it 
+        }
+      }
+    }
+  }
+  let mostPopularGame = null;//intial condition of the most popular game
+  let mostPopularCount = 0;//intial condition of the most popular count
+  for (const [game, count] of Object.entries(gameCount)) {
+    if (count > mostPopularCount) {
+      mostPopularCount = count;
+      mostPopularGame = game;
+    }
+  }
+  outputDiv.innerHTML = summary + mostPopularGame + " is the most popular game with " + mostPopularCount + " plays.";
+}
+
+  
