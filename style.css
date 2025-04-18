@@ -191,5 +191,85 @@
     background-color: #333;
     color: purple;
     transition: background-color 2s ease, color 2s ease;
-    /* this will add the hover effect but over the duration of 2 seconds and will come in over time */
+}
+#displayScores{
+    font-size: 19px;
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 5px;
+    color: #333;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+}
+#displaySummaryButton{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+#sortByAverage{
+    font-size: 19px;
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 5px;
+    color: #333;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+}
+#sortByAverageButton{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+#mostPopularGame{
+    font-size: 19px;
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 5px;
+    color: #333;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+}
+#mostPopularGameButton{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }

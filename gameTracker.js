@@ -215,56 +215,60 @@ let alerting = false;//make sure the set alerting to false becuase we woudl use 
   }
 
   function sortByAverage() {
-  const outputDiv = document.getElementById("output");
-  let summary = "Players sorted by average score:<br>";
+  const outputDiv = document.getElementById("output");//want to get where we will prudce the results 
+  let summary = "Players sorted by average score:<br>";//the intrial statemnt of the output with a br for good spacing 
 
-  const playerWithScores = [];
-  playerNames.forEach(player => {
-    playerWithScores.push({ player, score: averageScore(player) });
+  const playerWithScores = [];//array that we will use to contiain the player name and thheir score whch vold be the function of  USING THE SOCRE FROM THE scrore input 
+  playerNames.forEach(player => {//we will go through each of the player names in the array called PlayerNames
+    const playerInfo = {//making the object to gain the information of the player and the score 
+      player: player,//the player name 
+      score: averageScore(player)//score of the player is using the aaverage function we made using the socre array we sliced orginally and set to the playersname 
+    };
+    playerWithScores.push(playerInfo);//pushing thr plsyerInfor inot the 2-D array we made to store the name and also the average score 
   });
 
-  for (let i = 0; i < playerWithScores.length; i++) {
-    for (let j = i + 1; j < playerWithScores.length; j++) {
-      if (playerWithScores[i].score < playerWithScores[j].score) {
-        // Swap the players if they are out of order
-        const temp = playerWithScores[i];
-        playerWithScores[i] = playerWithScores[j];
-        playerWithScores[j] = temp;
+  for (let i = 0; i < playerWithScores.length; i++) {//traverse the first index of the players 
+    for (let j = i + 1; j < playerWithScores.length; j++) {//traverse the second index of the players
+      if (playerWithScores[i].score < playerWithScores[j].score) {//checking to see if the score of the first index is less than the second index
+        const temp = playerWithScores[i];//mkainng a temp varabel so that we canswitch it 
+        playerWithScores[i] = playerWithScores[j];//switching the values of the two indexes so that we can have them in order of the average score
+        playerWithScores[j] = temp;//putting the temp value in the second index so that we can have the two indexes switched
       }
     }
   }
 
-  playerWithScores.forEach(({ player, score }) => {
-    summary += `${player}: Average Score: ${score}<br>`;
+  playerWithScores.forEach(({ player, score }) => {//traversing the 2-D array after looking to sort the average score 
+    summary += `${player}: Average Score: ${score}<br>`;//adding the player names and score to the summary which will be aadded to he outputdiv 
   });
 
-  outputDiv.innerHTML = summary;
+  outputDiv.innerHTML = summary;//making the output div we got by takign the id of the HTML and makign it equal to the summarty 
 }
 function showPopularGame() {
-  const outputDiv = document.getElementById("output");
-  let summary = "Most popular game:<br>";
-  const gameCount = {};//this is a map that we will use to count the number of times a game was played by the players
-  for (let playerName of playerNames) {//goign through the player names 
-    const playerGames = data.get(playerName);//getting the games of the player 
-    if (playerGames) {//if the player has games then we will go through them and add them to the gameCount map 
-      for (let game of playerGames) {
-        if (!gameCount[game]) {//if the game is not in the map yet then we will add it to the map with a value of 1
-          gameCount[game] = 1;
+  const outputDiv = document.getElementById("output");//get the ID of the output div and make it a constt so we can add the result to it at the end 
+  let summary = "Most popular game:<br>";//intial statement 
+  const gameCount = {};//array tocont ain the game count of the games that we will be going through
+  for (let playerName of playerNames) {//going through the playerName by the names of each player 
+    const playerGames = data.get(playerName);//getting the data from the map we made and also added the new player into to 
+    if (playerGames) {//checking to make sure playerGames is not empty 
+      for (let game of playerGames) {//traversing thagmes o the plaeerGames 
+        if (!gameCount[game]) {//checking to see if the game is not in the gameCount array 
+          gameCount[game] = 1;//if we foudn a new game then we will make a new coutn fo rit and add it by 1 showing that we ran into a new game 
         } else {
           gameCount[game]++;//if it is in there then we will just add one to it 
         }
       }
     }
   }
-  let mostPopularGame = null;//intial condition of the most popular game
-  let mostPopularCount = 0;//intial condition of the most popular count
-  for (const [game, count] of Object.entries(gameCount)) {
-    if (count > mostPopularCount) {
-      mostPopularCount = count;
-      mostPopularGame = game;
+  let mostPopularGame = null;//making it null since we we dont know who is the most played game 
+  let mostPopularCount = 0;//intial count for hwo many times the player game was counted 
+  for (const game in gameCount) {//going through the gomeCount array to see how many times each game was played
+    const count = gameCount[game];//finding the game and then seeing how mnay counts it has 
+    if (count > mostPopularCount) {//checking to see if that game coutn is larger than the highest count 
+      mostPopularCount = count;//if it is then that count will no wbe the most popular coutn 
+      mostPopularGame = game;//the game with the coutn we reference to will be the most populargame 
     }
   }
-  outputDiv.innerHTML = summary + mostPopularGame + " is the most popular game with " + mostPopularCount + " plays.";
+  outputDiv.innerHTML = summary + mostPopularGame + " is the most popular game with " + mostPopularCount + " plays.";//producing the itnial staatment with the game name and how many times it was played
 }
 
   
