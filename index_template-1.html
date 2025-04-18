@@ -3,23 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>Game Tracker 2.0</title>
-  <style>
-    body { font-family: sans-serif; margin: 20px; }
-    label, input, select, button { margin: 5px 0; display: block; }
-    #output { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
-  </style>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <h1 id="gameTracker">Game Tracker</h1>
+  <!-- title of the website -->
 
   <label id="addPlayerLabel">Add Player:</label>
+  <!-- label for the add player -->
   <input type="text" id="playerName" placeholder="Player Name" />
+  <!-- i put for the name of the new player  -->
   <button id="addPlayerButton">Add Player</button>
+  <!-- button to add the player -->
+
 
   <label id="chooseGame">Choose Game:</label>
-  <select id="gameSelect">
+  <!-- label for the choose game -->
+  <select id="gameSelect"> 
+    <!-- id for the entire drop down -->
     <option class="value" value="Chess">Chess</option>
+    <!-- indivdial drop down values and their names  -->
     <option class="value" value="Checkers">Checkers</option>
     <option class="value" value="Monopoly">Monopoly</option>
     <option class="value" value="Uno">Uno</option>
@@ -30,22 +33,35 @@
   </select>
 
   <button id="new">Add New Game</button>
+  <!-- button to add a new game -->
 
 
   <label id="commas">Enter 3 Scores (comma separated):</label>
+  <!-- label for the scoire input  -->
   <input type="text" id="scoreInput" placeholder="e.g. 90,80,100" />
+  <!-- the scroe input that they would but in the new scores -->
   <button id="addScoresButton">Add Scores</button>
+  <!-- button to add the socres they have from above -->
 
-  <hr />
+  <hr/>
+  <!-- horizontal line to separate the sections -->
   <label id="displayScores">Display Summary:</label>
+  <!-- label for displaying the summary of the scores -->
+
 
   <button id="displaySummaryButton" onclick="displaySummary()">Display Summary</button>
+  <!-- button to display the summary of the scores -->
   <label id="sortByAverage">Sort Players by Average:</label>
+  <!-- label for sorting the players by average score -->
   <button id="sortByAverageButton" onclick="sortByAverage()">Sort Players by Average</button>
+  <!-- button to sort the players by average score -->
   <label id="mostPopularGame">Most Popular Game:</label>
+  <!-- label for the most popular game -->
   <button id="mostPopularGameButton" onclick="showPopularGame()">Most Popular Game</button>
+  <!-- button to show the most popular game -->
 
   <div id="output"></div>
+  <!-- div to display the output of the scores and summary -->
 
   </html>
 <script src="gameTracker.js"></script>
